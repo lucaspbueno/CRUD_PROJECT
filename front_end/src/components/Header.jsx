@@ -1,3 +1,4 @@
+import SwapTheme from "./SwapTheme"
 
 function Header() {
   return (
@@ -6,6 +7,9 @@ function Header() {
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="flex-none">
+        <div className="dropdown dropdown-end">
+          <SwapTheme />
+        </div>
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
