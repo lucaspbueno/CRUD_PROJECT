@@ -3,7 +3,7 @@ import Wrapper from "./components/Wrapper"
 import TableComponent from "./components/TableComponent"
 import FilterSection from "./components/FilterSection"
 import { useEffect, useState } from "react"
-import fetchData from "./utils/fetchData"
+import { fetchData } from "./utils/fetchData"
 
 function App() {
   const [data, setData] = useState([]);

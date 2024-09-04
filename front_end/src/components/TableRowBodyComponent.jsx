@@ -4,8 +4,7 @@ function TableRowBodyComponent({
     data: { id, tp_equipment, nm_manufacturer, nm_model, nr_serial, dt_purchase, vlr_purchase },
     index
   }) {
-  console.log(index);
-  
+
   return (
     <TableRow id={id}>
       <TableCell className="text-center">{ index }</TableCell>

@@ -12,5 +12,26 @@ const fetchData = async (url) => {
   }
 };
 
+const postData = async (url, data) => {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Especifica que estamos enviando JSON
+      },
+      body: JSON.stringify(data), // Converte o objeto para uma string JSON
+    });
 
-export default fetchData
+    if (!response.ok) {
+      throw new Error('Erro ao enviar dados');
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error('Erro:', err.message);
+    throw err;
+  }
+};
+
+export {fetchData, postData}

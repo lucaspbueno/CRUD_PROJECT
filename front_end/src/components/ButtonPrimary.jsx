@@ -1,7 +1,6 @@
-function ButtonPrimary({ text }) {
-  console.log(text);
+function ButtonPrimary({ text, type }) {
   return (
-    <button className="btn btn-primary">{ text }</button>
+    <button className="btn btn-primary text-white" type={ `${type ? type : 'button'}` }>{ text }</button>
   )
 }
 

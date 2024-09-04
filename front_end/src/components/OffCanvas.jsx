@@ -8,27 +8,39 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-/* import { Button } from "@/components/ui/button" */
+import { Button } from "@/components/ui/button"
 import ButtonPrimary from "./ButtonPrimary"
+import FormComponent from "./FormComponent"
+import Wrapper from "./Wrapper"
 
 function OffCanvas() {
   return (
     <Drawer>
+
       <DrawerTrigger>
         <ButtonPrimary text="Adicionar" />
       </DrawerTrigger>
-      <DrawerContent>
+
+      <DrawerContent className="min-h-[50vh] max-h-[60vh] sm:max-h-[70vh] lg:max-h-[80vh] overflow-y-auto">
+
         <DrawerHeader>
-          <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-          <DrawerDescription>This action cannot be undone.</DrawerDescription>
+          <DrawerTitle>Deseja adicionar um novo equipamento?</DrawerTitle>
+          <DrawerDescription>Use esse formulário para isso.</DrawerDescription>
         </DrawerHeader>
-        <DrawerFooter>
-          {/* <Button>Submit</Button> */}
+
+        <Wrapper>
+          <FormComponent />
+        </Wrapper>
+
+        {/* <DrawerFooter>
+          <Button>Submit</Button>
           <DrawerClose>
-            {/* <Button variant="outline">Cancel</Button> */}
+            <button className="btn btn-neutral">Neutral</button>
           </DrawerClose>
-        </DrawerFooter>
+        </DrawerFooter> */}
+
       </DrawerContent>
+
     </Drawer>
   )
 }
