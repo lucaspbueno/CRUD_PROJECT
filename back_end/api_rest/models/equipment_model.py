@@ -11,7 +11,6 @@ class Equipment(models.Model):
             blank=False,
             null=False
         )
-    nm_equipment = models.CharField(max_length=255)
     tp_equipment = models.CharField(max_length=255)
     nm_manufacturer = models.CharField(max_length=255)
     nm_model = models.CharField(max_length=255)
