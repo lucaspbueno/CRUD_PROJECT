@@ -1,0 +1,26 @@
+# Use a imagem oficial do Node.js como base
+FROM node:18
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia o package.json e o package-lock.json
+COPY package*.json ./
+
+# Instala as dependências
+RUN npm install
+
+# Copia o restante do código da aplicação
+COPY . .
+
+# Define a variável de ambiente para o Vite
+ENV HOST=0.0.0.0
+
+# Compila a aplicação para produção
+RUN npm run build
+
+# Expõe a porta em que o Vite estará rodando
+EXPOSE 5173
+
+# Comando para iniciar a aplicação
+CMD ["npm", "run", "dev"]
