@@ -5,16 +5,20 @@ FROM python:3.11.6
 WORKDIR /app
 
 # Copia o arquivo de requisitos do Django
-COPY requirements.txt ./
+COPY back_end/requirements.txt ./
 
 # Instala as dependências do Django
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia o restante do código da aplicação
-COPY . .
+COPY back_end/ .
 
 # Expõe a porta padrão do Django
 EXPOSE 8000
 
-# Comando para iniciar o servidor Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Copia o script de entrada e torna-o executável
+COPY ./entrypoint.backend.sh /usr/local/bin/entrypoint.backend.sh
+RUN chmod +x /usr/local/bin/entrypoint.backend.sh
+
+# Define o script de entrada
+ENTRYPOINT ["/usr/local/bin/entrypoint.backend.sh"]

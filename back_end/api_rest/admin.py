@@ -1,3 +1,7 @@
 from django.contrib import admin
+from api_rest.models import equipment_model
 
-# Register your models here.
+
+@admin.register(equipment_model.Equipment)
+class EquipmentAmin(admin.ModelAdmin):
+    ...

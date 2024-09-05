@@ -10,7 +10,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const urlEquipments = 'http://localhost:8000/api/v1/equipments/'
+  const urlEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
 
   useEffect(() => {
     const fetchApiData = async () => {
