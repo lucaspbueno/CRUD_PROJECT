@@ -1,0 +1,21 @@
+# Backend
+__pycache__
+*.pyc
+*.pyo
+venv/
+env/
+.virtualenv/
+
+# Frontend
+node_modules
+build
+dist
+
+# Geral
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.log
+.git
+.gitignore
