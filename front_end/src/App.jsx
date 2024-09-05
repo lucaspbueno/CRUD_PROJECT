@@ -9,28 +9,64 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [shouldFetchData, setShouldFetchData] = useState(false)
+  const [deleteBtnIsDisabled, setDeleteBtnIsDisabled] = useState(true)
+  const [editBtnIsDisabled, setEditBtnIsDisabled] = useState(true)
+  const [selectedItems, setSelectedItems] = useState([])
 
   const urlEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
 
   useEffect(() => {
     const fetchApiData = async () => {
-    try {
-      setLoading(true);
-      /* console.log(urlEquipments); */
-      
-      const result = await fetchData(urlEquipments);
-      /* console.log(result); */
-      // Chama a função importada
-      setData(result);
-    } catch (error) {
-        setError(error.message);
-    } finally {
-        setLoading(false);
-    }
-  };
+      try {
+        setLoading(true);
+        const result = await fetchData(urlEquipments);
+        setData(result);
+      } catch (err) {
+          setError(err.message);
+      } finally {
+          setLoading(false);
+      }
+    };
 
     fetchApiData();
   }, []);
+
+  useEffect(() => {
+    const fetchApiData = async () => {
+      try {
+        setLoading(true);
+        const result = await fetchData(urlEquipments);
+        setData(result);
+      } catch (err) {
+          setError(err.message);
+      } finally {
+          setLoading(false);
+      }
+    };
+
+  if (shouldFetchData) {
+    fetchApiData()
+    setShouldFetchData(false)
+  }
+
+    fetchApiData();
+  }, [shouldFetchData]);
+
+  useEffect(() => {
+    if (selectedItems.length === 1) {
+      setEditBtnIsDisabled(false)
+      setDeleteBtnIsDisabled(false)
+      return 
+    }
+    if (selectedItems.length > 0) {
+      setDeleteBtnIsDisabled(false)
+      return 
+    }
+    
+    setDeleteBtnIsDisabled(true)
+    setEditBtnIsDisabled(true)
+  }, [selectedItems]);
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
@@ -39,8 +75,21 @@ function App() {
     <>
       <Header></Header>
       <Wrapper>
-        <FilterSection></FilterSection>
-        <TableComponent data={data}></TableComponent>
+        <FilterSection
+          setShouldFetchData={setShouldFetchData}
+          deleteBtnIsDisabled={deleteBtnIsDisabled}
+          setDeleteBtnIsDisabled={setDeleteBtnIsDisabled}
+          selectedItems={selectedItems}
+          editBtnIsDisabled={editBtnIsDisabled}
+          setEditBtnIsDisabled={setEditBtnIsDisabled}
+        >
+          </FilterSection>
+        <TableComponent
+          data={data}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        >
+          </TableComponent>
       </Wrapper>
     </>
   )

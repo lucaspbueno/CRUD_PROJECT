@@ -1,19 +1,16 @@
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
 import ButtonPrimary from "./ButtonPrimary"
 import FormComponent from "./FormComponent"
 import Wrapper from "./Wrapper"
 
-function OffCanvas() {
+function OffCanvas({ setShouldFetchData }) {
   return (
     <Drawer>
 
@@ -21,7 +18,7 @@ function OffCanvas() {
         <ButtonPrimary text="Adicionar" />
       </DrawerTrigger>
 
-      <DrawerContent className="min-h-[50vh] max-h-[60vh] sm:max-h-[70vh] lg:max-h-[80vh] overflow-y-auto">
+      <DrawerContent className="min-h-[50vh] max-h-[60vh] sm:max-h-[70vh] lg:max-h-[80vh]">
 
         <DrawerHeader>
           <DrawerTitle>Deseja adicionar um novo equipamento?</DrawerTitle>
@@ -29,7 +26,7 @@ function OffCanvas() {
         </DrawerHeader>
 
         <Wrapper>
-          <FormComponent />
+          <FormComponent setShouldFetchData={setShouldFetchData} />
         </Wrapper>
 
         {/* <DrawerFooter>

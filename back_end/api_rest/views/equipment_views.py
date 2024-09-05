@@ -65,7 +65,24 @@ class EquipmentView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk=None):
-        equipment = get_object_or_404(Equipment, pk=pk)
-        equipment.delete()
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if pk:
+            equipment = get_object_or_404(Equipment, pk=pk)
+            equipment.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            ids = request.data.get('ids', [])
+            if not isinstance(ids, list):
+                return Response(
+                    {'error': 'IDs devem ser uma lista.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            if not ids:
+                return Response(
+                    {'error': 'Nenhum ID fornecido.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            deleted_count, _ = Equipment.objects.filter(id__in=ids).delete()
+            return Response(
+                {'deleted_count': deleted_count},
+                status=status.HTTP_204_NO_CONTENT
+            )

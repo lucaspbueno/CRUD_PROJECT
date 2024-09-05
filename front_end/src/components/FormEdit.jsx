@@ -11,28 +11,32 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import ButtonPrimary from "./ButtonPrimary"
-import { DrawerClose } from "./ui/drawer"
-import { postData } from "@/utils/fetchData"
+import { patchOrPutData } from "@/utils/fetchData"
 
 const formSchema = z.object({
-  tp_equipment: z.string().min(1, "Tipo é obrigatório"),
-  nm_manufacturer: z.string().min(1, "Nome do fabriacnte é obrigatório"),
-  nm_model: z.string().min(1, "Nome do modelo é obrigatório"),
-  nr_serial: z.string().min(1, "Número de série é obrigatório"),
-  dt_purchase: z.string().min(1, "Data da compra é obrigatória")
+  tp_equipment: z.string().optional(),
+  nm_manufacturer: z.string().optional(),
+  nm_model: z.string().optional(),
+  nr_serial: z.string().optional(),
+  dt_purchase: z.string()
+    .optional()
     .transform(val => {
-      const date = new Date(val);
-      if (isNaN(date.getTime())) {
-        throw new Error("Data inválida");
+
+      if (val) {
+        const date = new Date(val);
+        if (isNaN(date.getTime())) {
+          throw new Error("Data inválida");
+        }
+        return date.toISOString();
       }
-      return date.toISOString();
+
     }),
-  vl_purchase: z.string().min(1, "Valor da commpra é obrigatório")
-    .transform(val => parseFloat(val))
+  vl_purchase: z.string()
+    .optional()
+    .transform(val => val && parseFloat(val))
 });
 
-function FormComponent({ setShouldFetchData }) {
+function FormEdit({ setShouldFetchData, closeModal, setEditBtnIsDisabled, setDeleteBtnIsDisabled, selectedItems }) {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -58,8 +62,10 @@ function FormComponent({ setShouldFetchData }) {
   const urlPostEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
 
   const onSubmit = async (values) => {try {
-      await postData(urlPostEquipments, values);
+      await patchOrPutData(`${urlPostEquipments}${selectedItems[0]}/`, values);
       setShouldFetchData(true)
+      setDeleteBtnIsDisabled(true)
+      setEditBtnIsDisabled(true)
     } catch (err) {
       console.error('Erro ao enviar dados:', err.message);
     }
@@ -86,19 +92,25 @@ function FormComponent({ setShouldFetchData }) {
           ))
         }
 
-        <section className="col-span-full flex gap-2 justify-end">
-          <DrawerClose>
-            <ButtonPrimary type="submit" text="Cadastrar" />
-          </DrawerClose>
-
-          <DrawerClose>
-            <button className="btn btn-outline btn-neutral" type="button">Cancelar</button>
-          </DrawerClose>
+        <section className="col-span-full">
+          <button
+              type="button"
+              className="btn btn-outline btn-neutral"
+              onClick={ closeModal }
+            >
+                Cancelar
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary text-white ml-3"
+            >
+              Confirmar
+            </button>
         </section>
-        
+
       </form>
     </Form>
   )
 }
 
-export default FormComponent;
+export default FormEdit;
