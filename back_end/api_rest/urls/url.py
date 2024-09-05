@@ -25,4 +25,9 @@ urlpatterns = [
         equipment_views.EquipmentView.as_view(),
         name='equipment-find'
     ),
+    path(
+        'equipment/bulk-delete/',
+        equipment_views.EquipmentView.as_view(),
+        name='equipment-bulk-delete'
+    ),
 ]

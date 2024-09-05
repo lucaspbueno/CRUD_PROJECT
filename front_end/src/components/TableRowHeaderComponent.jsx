@@ -1,8 +1,15 @@
 import { TableHead, TableRow } from "./ui/table"
 
-function TableRowHeaderComponent() {
+function TableRowHeaderComponent({ setAllSelected }) {
+
+
   return (
     <TableRow>
+      <TableHead className="text-center">
+        <label>
+          <input type="checkbox" className="checkbox" onChange={ (e) => setAllSelected(e.target.checked) } />
+        </label>
+      </TableHead>
       <TableHead className="text-center">#</TableHead>
       <TableHead className="w-[100px] text-center">Tipo</TableHead>
       <TableHead className="text-center">Fabricante</TableHead>

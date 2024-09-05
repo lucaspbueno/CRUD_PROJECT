@@ -92,7 +92,7 @@ function FormComponent({ setShouldFetchData }) {
           </DrawerClose>
 
           <DrawerClose>
-            <button className="btn btn-outline btn-neutral">Cancelar</button>
+            <button className="btn btn-outline btn-neutral" type="button">Cancelar</button>
           </DrawerClose>
         </section>
         

@@ -10,6 +10,9 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [shouldFetchData, setShouldFetchData] = useState(false)
+  const [deleteBtnIsDisabled, setDeleteBtnIsDisabled] = useState(true)
+  const [shouldCheckDeleteBtn, setShouldCheckDeleteBtn] = useState(false)
+  const [selectedItems, setSelectedItems] = useState([])
 
   const urlEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
 
@@ -50,6 +53,22 @@ function App() {
     fetchApiData();
   }, [shouldFetchData]);
 
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      setDeleteBtnIsDisabled(false)
+      return 
+    }
+    setDeleteBtnIsDisabled(true)
+  }, [selectedItems]);
+
+  useEffect(() => {
+    if (selectedItems.length) {
+      setDeleteBtnIsDisabled(true)
+      return 
+    }
+      setDeleteBtnIsDisabled(false)
+  }, [shouldCheckDeleteBtn]);
+
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
 
@@ -57,8 +76,19 @@ function App() {
     <>
       <Header></Header>
       <Wrapper>
-        <FilterSection setShouldFetchData={setShouldFetchData}></FilterSection>
-        <TableComponent data={data}></TableComponent>
+        <FilterSection
+          setShouldFetchData={setShouldFetchData}
+          deleteBtnIsDisabled={deleteBtnIsDisabled}
+          selectedItems={selectedItems}
+          setShouldCheckDeleteBtn={setShouldCheckDeleteBtn}
+        >
+          </FilterSection>
+        <TableComponent
+          data={data}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        >
+          </TableComponent>
       </Wrapper>
     </>
   )
