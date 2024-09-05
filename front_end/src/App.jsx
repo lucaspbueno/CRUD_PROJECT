@@ -62,11 +62,15 @@ function App() {
   }, [selectedItems]);
 
   useEffect(() => {
-    if (selectedItems.length) {
-      setDeleteBtnIsDisabled(true)
-      return 
+    if (shouldCheckDeleteBtn) {
+      if (selectedItems.length) {
+        setDeleteBtnIsDisabled(true)
+        console.log('Teste');
+        
+        return 
+      }
+        setDeleteBtnIsDisabled(false)
     }
-      setDeleteBtnIsDisabled(false)
   }, [shouldCheckDeleteBtn]);
 
   if (loading) return <p>Carregando...</p>;
