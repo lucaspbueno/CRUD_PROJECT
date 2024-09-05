@@ -49,7 +49,7 @@ function FormComponent() {
   ]
 
   
-  const urlPostEquipments = 'http://localhost:8000/api/v1/equipments/'
+  const urlPostEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
 
   const onSubmit = async (values) => {try {
     const result = await postData(urlPostEquipments, values);
