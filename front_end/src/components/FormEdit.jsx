@@ -36,7 +36,7 @@ const formSchema = z.object({
     .transform(val => val && parseFloat(val))
 });
 
-function FormEdit({ setShouldFetchData, closeModal }) {
+function FormEdit({ setShouldFetchData, closeModal, setEditBtnIsDisabled, setDeleteBtnIsDisabled, selectedItems }) {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -61,10 +61,11 @@ function FormEdit({ setShouldFetchData, closeModal }) {
 
   const urlPostEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
 
-
   const onSubmit = async (values) => {try {
-      await patchOrPutData(urlPostEquipments, values);
+      await patchOrPutData(`${urlPostEquipments}${selectedItems[0]}/`, values);
       setShouldFetchData(true)
+      setDeleteBtnIsDisabled(true)
+      setEditBtnIsDisabled(true)
     } catch (err) {
       console.error('Erro ao enviar dados:', err.message);
     }

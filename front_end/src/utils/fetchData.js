@@ -59,7 +59,7 @@ const deleteData = async (url, ids) => {
 const patchOrPutData = async (url, data) => {
   try {
     // Verifica o número de chaves no objeto de dados
-    const method = Object.keys(data).length === 6 ? 'PATCH' : 'PUT';
+    const method = Object.keys(data).length === 6 ? 'PUT' : 'PATCH';
 
     const response = await fetch(url, {
       method,

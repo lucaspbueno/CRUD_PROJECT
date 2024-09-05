@@ -11,7 +11,7 @@ function App() {
   const [error, setError] = useState(null);
   const [shouldFetchData, setShouldFetchData] = useState(false)
   const [deleteBtnIsDisabled, setDeleteBtnIsDisabled] = useState(true)
-  const [shouldCheckDeleteBtn, setShouldCheckDeleteBtn] = useState(false)
+  const [editBtnIsDisabled, setEditBtnIsDisabled] = useState(true)
   const [selectedItems, setSelectedItems] = useState([])
 
   const urlEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
@@ -54,24 +54,19 @@ function App() {
   }, [shouldFetchData]);
 
   useEffect(() => {
+    if (selectedItems.length === 1) {
+      setEditBtnIsDisabled(false)
+      setDeleteBtnIsDisabled(false)
+      return 
+    }
     if (selectedItems.length > 0) {
       setDeleteBtnIsDisabled(false)
       return 
     }
+    
     setDeleteBtnIsDisabled(true)
+    setEditBtnIsDisabled(true)
   }, [selectedItems]);
-
-  useEffect(() => {
-    if (shouldCheckDeleteBtn) {
-      if (selectedItems.length) {
-        setDeleteBtnIsDisabled(true)
-        console.log('Teste');
-        
-        return 
-      }
-        setDeleteBtnIsDisabled(false)
-    }
-  }, [shouldCheckDeleteBtn]);
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
@@ -83,8 +78,10 @@ function App() {
         <FilterSection
           setShouldFetchData={setShouldFetchData}
           deleteBtnIsDisabled={deleteBtnIsDisabled}
+          setDeleteBtnIsDisabled={setDeleteBtnIsDisabled}
           selectedItems={selectedItems}
-          setShouldCheckDeleteBtn={setShouldCheckDeleteBtn}
+          editBtnIsDisabled={editBtnIsDisabled}
+          setEditBtnIsDisabled={setEditBtnIsDisabled}
         >
           </FilterSection>
         <TableComponent

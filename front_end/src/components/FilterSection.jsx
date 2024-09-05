@@ -7,7 +7,7 @@ import { useRef } from "react";
 import { deleteData } from "@/utils/fetchData";
 import FormEdit from "./FormEdit";
 
-function FilterSection({ setShouldFetchData, deleteBtnIsDisabled, selectedItems, setShouldCheckDeleteBtn }) {
+function FilterSection({ setShouldFetchData, deleteBtnIsDisabled, selectedItems, setDeleteBtnIsDisabled, editBtnIsDisabled, setEditBtnIsDisabled }) {
   const modalRefDelete = useRef(null);
   const modalRefEdit = useRef(null);
 
@@ -29,7 +29,8 @@ function FilterSection({ setShouldFetchData, deleteBtnIsDisabled, selectedItems,
     try {
       await deleteData(url, selectedItems);
       setShouldFetchData(true)
-      setShouldCheckDeleteBtn(true)
+      setDeleteBtnIsDisabled(true)
+      setEditBtnIsDisabled(true)
     } catch (error) {
       console.error('Erro ao excluir dados:', error.message);
     }
@@ -41,7 +42,7 @@ function FilterSection({ setShouldFetchData, deleteBtnIsDisabled, selectedItems,
       <section className="flex gap-5">
         <button
           className="btn btn-outline btn-warning"
-          disabled={deleteBtnIsDisabled}
+          disabled={editBtnIsDisabled}
           onClick={ () => openModal(modalRefEdit) }
         >
           <FontAwesomeIcon icon={faPen} />
@@ -73,6 +74,9 @@ function FilterSection({ setShouldFetchData, deleteBtnIsDisabled, selectedItems,
           >
             <FormEdit
               setShouldFetchData={ setShouldFetchData }
+              setEditBtnIsDisabled={setEditBtnIsDisabled}
+              setDeleteBtnIsDisabled={setDeleteBtnIsDisabled}
+              selectedItems={selectedItems}
               closeModal={ () => closeModal(modalRefEdit) }
             >
             </FormEdit>
