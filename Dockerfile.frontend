@@ -5,19 +5,19 @@ FROM node:18
 WORKDIR /app
 
 # Copia o package.json e o package-lock.json
-COPY package*.json ./
+COPY front_end/package*.json ./
 
 # Instala as dependências
 RUN npm install
 
 # Copia o restante do código da aplicação
-COPY . .
+COPY front_end/ .
 
 # Define a variável de ambiente para o Vite
 ENV HOST=0.0.0.0
 
 # Compila a aplicação para produção
-RUN npm run build
+# RUN npm run build
 
 # Expõe a porta em que o Vite estará rodando
 EXPOSE 5173
