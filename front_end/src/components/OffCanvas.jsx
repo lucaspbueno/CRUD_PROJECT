@@ -18,7 +18,7 @@ function OffCanvas({ setShouldFetchData }) {
         <ButtonPrimary text="Adicionar" />
       </DrawerTrigger>
 
-      <DrawerContent className="min-h-[50vh] max-h-[60vh] sm:max-h-[70vh] lg:max-h-[80vh] overflow-y-auto">
+      <DrawerContent className="min-h-[50vh] max-h-[60vh] sm:max-h-[70vh] lg:max-h-[80vh]">
 
         <DrawerHeader>
           <DrawerTitle>Deseja adicionar um novo equipamento?</DrawerTitle>
