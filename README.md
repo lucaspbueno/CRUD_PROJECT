@@ -11,7 +11,7 @@ Este projeto foi desenvolvido como parte de um desafio técnico para a Arkmeds. 
   - Basta ter o docker desktop instalado (tanto no linux quanto no windows)
 https://www.docker.com/products/docker-desktop/
   - Acessar o terminal e clonar o repositório:
-```git clone git@github.com:lucaspbueno/CRUD_PROJECT.git```
+```git clone https://github.com/lucaspbueno/CRUD_PROJECT.git```
   - Acessar a pasta do projeto:
 ```cd CRUD_PROJECT/```
   - Rodar o projeto com o docker:
@@ -33,7 +33,7 @@ Caso opte por não utilizar Docker, certifique-se de ter as seguintes dependênc
 
 #### Backend:
 - Acessar o terminal e clonar o repositório:
-  - ```git clone git@github.com:lucaspbueno/CRUD_PROJECT.git```
+  - ```git clone https://github.com/lucaspbueno/CRUD_PROJECT.git```
 - Acessar a pasta do projeto:
   - ```cd CRUD_PROJECT/```
 - Acessar a pasta do backend:
