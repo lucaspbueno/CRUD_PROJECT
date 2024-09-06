@@ -23,7 +23,7 @@ function FilterSection({ setShouldFetchData, deleteBtnIsDisabled, selectedItems,
     }
   };
 
-  const url = 'http://0.0.0.0:8000/api/v1/equipment/bulk-delete/';
+  const url = 'http://localhost:8000/api/v1/equipment/bulk-delete/';
 
   const deleteEquipment = async () => {
     try {

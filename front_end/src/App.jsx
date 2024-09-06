@@ -14,7 +14,7 @@ function App() {
   const [editBtnIsDisabled, setEditBtnIsDisabled] = useState(true)
   const [selectedItems, setSelectedItems] = useState([])
 
-  const urlEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
+  const urlEquipments = 'http://localhost:8000/api/v1/equipment/'
 
   useEffect(() => {
     const fetchApiData = async () => {

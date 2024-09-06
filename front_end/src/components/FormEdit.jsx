@@ -59,7 +59,7 @@ function FormEdit({ setShouldFetchData, closeModal, setEditBtnIsDisabled, setDel
     {"label": 'Valor da compra', "name": 'vl_purchase', "description": 'Valor de compra do equipamento.', 'type': 'number'},
   ]
 
-  const urlPostEquipments = 'http://0.0.0.0:8000/api/v1/equipment/'
+  const urlPostEquipments = 'http://localhost:8000/api/v1/equipment/'
 
   const onSubmit = async (values) => {try {
       await patchOrPutData(`${urlPostEquipments}${selectedItems[0]}/`, values);
