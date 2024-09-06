@@ -6,6 +6,9 @@
 ## Apresentação:
 [Gravação de tela de 2024-09-06 09-17-59.webm](https://github.com/user-attachments/assets/8d7d8a28-e99c-4352-9890-1ba4d3e4875f)
 
+## Observações
+- O header e seus componentes estão presentes, mas ainda não possuem uma funcionalidade própria. O mesmo vale para o input de pesquisa acima da tabela.
+
 
 ## Introdução
 Este projeto foi desenvolvido como parte de um desafio técnico para a Arkmeds. O objetivo é criar uma aplicação web que permita aos usuários cadastrar, editar, deletar e visualizar equipamentos de uma empresa. A aplicação utiliza Django e Django REST Framework no backend, com React, Vite, Tailwind, DaisyUI e Shadcn no frontend, além de Docker para gerenciamento do ambiente.
