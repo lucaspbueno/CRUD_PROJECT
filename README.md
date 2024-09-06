@@ -117,8 +117,10 @@ Caso opte por não utilizar Docker, certifique-se de ter as seguintes dependênc
 ### PUT 
 #### Rota:
 > http://localhost:8000/api/v1/equipment/pk>/
-### Parâmetro: ID do equipamento que será atualizado
-#### Body: Campos a serem atualizados - (No caso de PUT devem ser todos)
+### Parâmetro:
+ - ID (pk) do equipamento que será atualizado
+#### Body:
+ - Campos a serem atualizados - (No caso de PUT devem ser todos)
 ```
 {
 	"tp_equipment": "Ferramenta 5",
@@ -146,7 +148,8 @@ Caso opte por não utilizar Docker, certifique-se de ter as seguintes dependênc
 ### PATCH
 #### Rota:
 > http://localhost:8000/api/v1/equipment/pk/
-### Parâmetro: ID do equipamento que será atualizado
+### Parâmetro:
+ - ID (pk )do equipamento que será atualizado
 #### Body: Campos a serem atualizados
 ```
 {
@@ -172,5 +175,6 @@ Caso opte por não utilizar Docker, certifique-se de ter as seguintes dependênc
 ### DELETE
 #### Rota:
 > http://localhost:8000/api/v1/equipment/pk/
-### Parâmetro: ID do equipamento que será excluído
+### Parâmetro:
+ - ID (pk) do equipamento que será excluído
 #### Retorno: SEM RETORNO
