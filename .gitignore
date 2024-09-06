@@ -46,7 +46,6 @@ dist-ssr
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -154,10 +153,6 @@ node_modules/
 
 # Vite cache
 .vite/
-
-# Tailwind CSS
-tailwind.config.js
-tailwind.config.cjs
 
 # DaisyUI
 daisyui.config.js
