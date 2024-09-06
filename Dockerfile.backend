@@ -16,9 +16,8 @@ COPY back_end/ .
 # Expõe a porta padrão do Django
 EXPOSE 8000
 
-# Copia o script de entrada e torna-o executável
-COPY entrypoint.backend.sh /usr/local/bin/entrypoint.backend.sh
-RUN chmod +x /usr/local/bin/entrypoint.backend.sh
-
-# Define o script de entrada
-ENTRYPOINT ["sh", "/usr/local/bin/entrypoint.backend.sh"]
+# Define o comando de entrada para inicializar o servidor Django e executar migrações
+CMD ["sh", "-c", "\
+    python manage.py makemigrations && \
+    python manage.py migrate && \
+    python manage.py runserver 0.0.0.0:8000"]
