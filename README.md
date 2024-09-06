@@ -23,6 +23,45 @@ Pronto o projeto já está iniciado e pronto para ser usado!! 🚀🚀
 - Backend:
 > http://localhost:8000/api/v1 + endpoint
 
+### Sem docker:
+
+Caso opte por não utilizar Docker, certifique-se de ter as seguintes dependências instaladas:
+
+ - Python: versão 3.11
+ - Node.js: versão 18
+
+
+#### Backend:
+- Acessar o terminal e clonar o repositório:
+  - ```git clone git@github.com:lucaspbueno/CRUD_PROJECT.git```
+- Acessar a pasta do projeto:
+  - ```cd CRUD_PROJECT/```
+- Acessar a pasta do backend:
+  - ```cd back_end/```
+- Instalar e ativar a venv (ambiente virtual):
+	- ```python3 -m venv venv```
+	- Linux/MacOS:
+		- ```source venv/bin/activate```
+	- Windows:
+		- ```venv\Scripts\activate```
+- Instalar as dependências
+  - ```pip install -r requirements.txt```
+- Iniciar as migrations:
+  - ```python manage.py makemigrations ```
+  - ```python manage.py migrate ```
+- Iniciar o servidor:
+  - ```python manage.py runserver```
+#### Pronto o servidor backend já está no ar e pronto para ser usado :rocket::rocket:
+
+#### Frontend:
+* Com o projeto já clonado
+- Acessar a pasta do frontend:
+  - ```cd front_end/```
+- Instalar as dependências:
+  - ```npm install```
+- Inciar o serivod:
+  - ```npm run dev```
+#### Pronto o servidor frontend já está no ar e pronto para ser usado :rocket::rocket:
 
 
 ## Rotas
