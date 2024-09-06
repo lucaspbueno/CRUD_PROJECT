@@ -32,7 +32,7 @@ function TableComponent({ data, selectedItems, setSelectedItems }) {
 
   return (
     <Table>
-      <TableCaption>Uma lista de todos os seus equipaentos.</TableCaption>
+      <TableCaption>Uma lista de todos os seus equipamentos.</TableCaption>
       <TableHeader>
         <TableRowHeaderComponent setAllSelected={handleSelectAll} />
       </TableHeader>
