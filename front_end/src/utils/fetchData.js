@@ -17,9 +17,9 @@ const postData = async (url, data) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Especifica que estamos enviando JSON
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data), // Converte o objeto para uma string JSON
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -41,7 +41,7 @@ const deleteData = async (url, ids) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ids }), // Enviando a lista de IDs como JSON
+      body: JSON.stringify({ ids }),
     });
 
     if (!response.ok) {
@@ -58,15 +58,17 @@ const deleteData = async (url, ids) => {
 
 const patchOrPutData = async (url, data) => {
   try {
-    // Verifica o número de chaves no objeto de dados
-    const method = Object.keys(data).length === 6 ? 'PUT' : 'PATCH';
+    const keys = Object.keys(data);
+    const allKeysHaveValue = keys.length === 6 && keys.every(key => data[key] !== undefined && data[key] !== null && data[key] !== '');
+
+    const method = allKeysHaveValue ? 'PUT' : 'PATCH';
 
     const response = await fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data), // Envia o objeto convertido para uma string JSON
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
