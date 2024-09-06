@@ -16,9 +16,6 @@ COPY front_end/ .
 # Define a variável de ambiente para o Vite
 ENV HOST=0.0.0.0
 
-# Compila a aplicação para produção
-# RUN npm run build
-
 # Expõe a porta em que o Vite estará rodando
 EXPOSE 5173
 
