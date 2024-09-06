@@ -17,8 +17,8 @@ COPY back_end/ .
 EXPOSE 8000
 
 # Copia o script de entrada e torna-o executável
-COPY ./entrypoint.backend.sh /usr/local/bin/entrypoint.backend.sh
+COPY entrypoint.backend.sh /usr/local/bin/entrypoint.backend.sh
 RUN chmod +x /usr/local/bin/entrypoint.backend.sh
 
 # Define o script de entrada
-ENTRYPOINT ["/usr/local/bin/entrypoint.backend.sh"]
+ENTRYPOINT ["sh", "/usr/local/bin/entrypoint.backend.sh"]
