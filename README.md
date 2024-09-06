@@ -6,6 +6,25 @@
 ## Introdução
 Este projeto foi desenvolvido como parte de um desafio técnico para a Arkmeds. O objetivo é criar uma aplicação web que permita aos usuários cadastrar, editar, deletar e visualizar equipamentos de uma empresa. A aplicação utiliza Django e Django REST Framework no backend, com React, Vite, Tailwind, DaisyUI e Shadcn no frontend, além de Docker para gerenciamento do ambiente.
 
+## Como iniciar:
+### Com docker:
+  - Basta ter o docker desktop instalado (tanto no linux quanto no windows)
+https://www.docker.com/products/docker-desktop/
+  - Acessar o terminal e clonar o repositório:
+```git clone git@github.com:lucaspbueno/CRUD_PROJECT.git```
+  - Acessar a pasta do projeto:
+```cd CRUD_PROJECT/```
+  - Rodar o projeto com o docker:
+```docker compose up -d --build```
+
+Pronto o projeto já está iniciado e pronto para ser usado!! 🚀🚀
+- Frontend:
+> http://localhost:5173/
+- Backend:
+> http://localhost:8000/api/v1 + endpoint
+
+
+
 ## Rotas
 ### GET
 #### Rota:
