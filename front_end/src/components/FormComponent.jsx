@@ -1,104 +1,92 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import ButtonPrimary from "./ButtonPrimary"
-import { DrawerClose } from "./ui/drawer"
-import { postData } from "@/utils/fetchData"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { postData } from "@/utils/fetchData";
+import InputComponent from "./InputComponent";
+import ButtonPrimary from "./ButtonPrimary";
+import { useState } from "react";
+import Alert from "./Alert";
 
-const formSchema = z.object({
-  tp_equipment: z.string().min(1, "Tipo é obrigatório"),
-  nm_manufacturer: z.string().min(1, "Nome do fabriacnte é obrigatório"),
+// Defina o esquema de validação com Zod
+const schema = z.object({
+  tp_equipment: z.string().min(1, "Tipo do equipamento é obrigatório"),
+  nm_manufacturer: z.string().min(1, "Nome do fabricante é obrigatório"),
   nm_model: z.string().min(1, "Nome do modelo é obrigatório"),
   nr_serial: z.string().min(1, "Número de série é obrigatório"),
-  dt_purchase: z.string().min(1, "Data da compra é obrigatória")
-    .transform(val => {
-      const date = new Date(val);
-      if (isNaN(date.getTime())) {
-        throw new Error("Data inválida");
-      }
-      return date.toISOString();
-    }),
-  vl_purchase: z.string().min(1, "Valor da commpra é obrigatório")
-    .transform(val => parseFloat(val))
+  dt_purchase: z.string().nonempty("Data da compra é obrigatória"),
+  vl_purchase: z.number().min(0, "Valor da compra deve ser positivo"),
 });
 
-function FormComponent({ setShouldFetchData }) {
+function FormComponent({ setShouldFetchData, btnRegister, btnClose }) {
+  const [showError, setShowError] = useState(false);
+  const [message, setMessage] = useState('');
 
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    /* defaultValues: {
-      tp_equipment: "",
-      nm_manufacturer: "",
-      nm_modelo: "",
-      nr_serie: "",
-      dt_purchase: "",
-      vl_purchase: ""
-    }, */
-  })
+  // Utilize o esquema de validação com react-hook-form
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   const formFields = [
-    {"label": 'Tipo', "name": 'tp_equipment', "description": 'Tipo do equipamento.', 'type': 'text'},
-    {"label": 'Fabricante', "name": 'nm_manufacturer', "description": 'Nome do fabricante.', 'type': 'text'},
-    {"label": 'Modelo', "name": 'nm_model', "description": 'Nome do modelo.', 'type': 'text'},
-    {"label": 'Número de série', "name": 'nr_serial', "description": 'Número de série do equipamento.', 'type': 'text'},
-    {"label": 'Data da compra', "name": 'dt_purchase', "description": 'Data da compra do equipamento.', 'type': 'date'},
-    {"label": 'Valor da compra', "name": 'vl_purchase', "description": 'Valor de compra do equipamento.', 'type': 'number'},
-  ]
+    { label: 'Tipo', name: 'tp_equipment', description: 'Tipo do equipamento.', type: 'text' },
+    { label: 'Fabricante', name: 'nm_manufacturer', description: 'Nome do fabricante.', type: 'text' },
+    { label: 'Modelo', name: 'nm_model', description: 'Nome do modelo.', type: 'text' },
+    { label: 'Número de série', name: 'nr_serial', description: 'Número de série do equipamento.', type: 'text' },
+    { label: 'Data da compra', name: 'dt_purchase', description: 'Data da compra do equipamento.', type: 'date' },
+    { label: 'Valor da compra', name: 'vl_purchase', description: 'Valor de compra do equipamento.', type: 'number' },
+  ];
 
-  const urlPostEquipments = 'http://localhost:8000/api/v1/equipment/'
+  const urlPostEquipments = 'http://localhost:8000/api/v1/equipment/';
 
-  const onSubmit = async (values) => {try {
+  const onSubmit = async (values) => {
+    try {
+      console.log(values);
       await postData(urlPostEquipments, values);
-      setShouldFetchData(true)
+      setShouldFetchData(true);
     } catch (err) {
+      setMessage(err.message);
+      setShowError(true);
       console.error('Erro ao enviar dados:', err.message);
+    } finally {
+      setTimeout(() => setShowError(false), 2000);
     }
-  }
+  };
+
+  const handleClick = (btnRef) => {
+    if (btnRef.current) {
+      btnRef.current.click();
+    }
+  };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {
-          formFields.map(({label, name, description, type}, index) => (
-            <FormField key={index} control={form.control} name={name} render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{label}</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" type={type} {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    {description}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))
-        }
+    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {formFields.map((field, index) => (
+        <InputComponent
+          key={index}
+          field={field}
+          register={register}
+          error={errors[field.name]} // Passe os erros para o componente InputComponent
+        />
+      ))}
 
-        <section className="col-span-full flex gap-2 justify-end">
-          <DrawerClose>
-            <ButtonPrimary type="submit" text="Cadastrar" />
-          </DrawerClose>
+      <section className="col-span-full flex gap-2 justify-end">
+        <ButtonPrimary
+          type="submit"
+          text="Cadastrar"
+          onClick={() => handleClick(btnRegister)}
+        />
 
-          <DrawerClose>
-            <button className="btn btn-outline btn-neutral" type="button">Cancelar</button>
-          </DrawerClose>
-        </section>
-        
-      </form>
-    </Form>
-  )
+        <button
+          type="button"
+          onClick={() => handleClick(btnClose)}
+          className="btn btn-outline btn-neutral"
+        >
+          Cancelar
+        </button>
+      </section>
+
+      {showError && <Alert message={message} />}
+    </form>
+  );
 }
 
 export default FormComponent;
