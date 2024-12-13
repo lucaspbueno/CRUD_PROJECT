@@ -1,7 +1,9 @@
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -9,8 +11,12 @@ import {
 import ButtonPrimary from "./ButtonPrimary"
 import FormComponent from "./FormComponent"
 import Wrapper from "./Wrapper"
+import { useRef } from "react"
 
 function OffCanvas({ setShouldFetchData }) {
+  const btnRegister = useRef(null)
+  const btnClose = useRef(null)
+
   return (
     <Drawer>
 
@@ -26,15 +32,19 @@ function OffCanvas({ setShouldFetchData }) {
         </DrawerHeader>
 
         <Wrapper>
-          <FormComponent setShouldFetchData={setShouldFetchData} />
+          <FormComponent
+            setShouldFetchData={setShouldFetchData}
+            btnRegister={btnRegister}
+            btnClose={btnClose}
+          />
         </Wrapper>
 
-        {/* <DrawerFooter>
-          <Button>Submit</Button>
+        <DrawerFooter className="hidden">
+          <button ref={btnRegister}>Submit</button>
           <DrawerClose>
-            <button className="btn btn-neutral">Neutral</button>
+            <button ref={btnClose} className="btn btn-neutral">Neutral</button>
           </DrawerClose>
-        </DrawerFooter> */}
+        </DrawerFooter>
 
       </DrawerContent>
 

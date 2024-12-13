@@ -9,6 +9,7 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     volumes:
+      - ./front_end:/app
       - /app/node_modules
     stdin_open: true
     tty: true
